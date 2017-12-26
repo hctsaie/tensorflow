@@ -1,0 +1,46 @@
+Convolution:
+
+當一個Function輸入一個系統(也是Function)後, 會輸出為另一個Function. 而, 該輸出的Function為每個輸入訊號所產生的當下效應及殘留效應. 為了表示這樣的關係, 及將其稱呼為Convolue.
+
+https://stackoverflow.com/questions/17337332/why-convolution-is-required-or-what-is-the-philosophy-behind-convolution
+If you refer to the wikipedia article regarding LTI system theory you will see that the impulse response h(t) dictates how the system responds to an impulse d(t). We also know that the equation for the output of a system is y(t) = h(t) * x(t) in the time domain. Where y(t) is the output, h(t) is the impulse response, x(t) is the input. The symbol * refers to the convolution of h(t) and x(t)
+
+In the frequency domain (by performing the Laplace transform), we know that Y(s) = H(s)X(s), thus the output response to the input X(s) is the Multiplication of the transfer function H(s) and the input X(s).
+
+
+兩個Function做Convolue, 有兩種表示方法:
+http://blog.csdn.net/bitcarmanlee/article/details/54729807
+1. 
+x[0, 1, 2]分別去乘y[0], 落在axis為0, 1, 2
+x[0, 1, 2]分別去乘y[1], 落在axis為1, 2, 3
+x[0, 1, 2]分別去乘y[2], 落在axis為2, 3, 4
+在axis去做各點相加, 其結果即為Convolution
+以axis為0來說, 那時, 只有x[0]和y[0]的乘積
+但, 到了axis為1, 則除了有x[1]和y[0], 也有x[0]和y[1]. 其x[1]和y[0], 是新輸入的乘積. 其x[0]和y[1], 則是之前x[0]在系統內的殘留效應, 而效應的大小是y[1].
+以此法, 則是一次各別算, 當x[0]時, 和y[n]的各別乘績. 當x[1]時, 和y[n]的各別乘績. 但, 如要知道axis 0, 1, 2的結果, 則需再相加. 從圖示上, 也較難看出, 在axis 0, 1, 2時的各別效應.
+
+2. 
+http://blog.csdn.net/zyex1108/article/details/45397637
+另外一種, 則是Reflect再相乘. 差別在於, 透過這種方式, 可以一次算出系統分別在axis 0, 1, or 2的各別所有反應.
+也就是說, 系統function轉折, 
+看axis 0時, 剛好會是x[0]和y[0]的乘積
+看axis 1時, 剛好會是x[0]和y[1]的乘積, 和x[1]和y[0]的乘積. 
+以此法, 可以在圖示看到, 當axis 0時, x[0]和y[0]有乘積, 在axis 1時, x[0]和y[1]有overlay, x[1]和y[0]有overaly, 也就是在axis 0時, 系統的output是要考慮兩者的影響.
+
+https://www.quora.com/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important/answer/Mahesh-C-Shastry
+多項式的Convolue, 即為多項式的係數相乘
+
+https://www.quora.com/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important
+
+Let me put it without much math. Consider multiplication: As and when you get a number, you multiply it by one more number and pass it off as output. A multiplier does not remember stuff. Its like a small child. It forgets all the things you did in the past and responds to the current input. If you smile, it smiles back, so forth. 
+But, a convolution is different. It remembers your past actions. Based on that and your present doing, it will decide what to do. If you smile at it and you did real-bad before, it would not smile back at you! 
+
+https://www.quora.com/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important
+Raeed Chowdhury, Electrical Engineer
+它看起來不同的原因是因為在這種情況下，你正在找到每個輸入信號的整個輸出信號的貢獻。但, Convoluation是看某個特定時間點
+
+
+https://www.quora.com/Digital-Signal-Processing-How-do-you-explain-without-doing-any-calculation-that-convolution-in-time-domain-should-imply-multiplication-in-frequency-domain
+
+
+https://www.quora.com/What-is-an-intuitive-way-of-explaining-how-the-Fourier-transform-works/answer/Mark-Eichenlaub
