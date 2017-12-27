@@ -31,12 +31,38 @@ https://www.quora.com/How-can-I-explain-in-a-simple-manner-what-convolution-is-a
 https://www.quora.com/Digital-Signal-Processing/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important/answer/Mahesh-C-Shastry?share=1&srid=pd9d
 https://www.quora.com/Digital-Signal-Processing/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important/answer/Raeed-Chowdhury?share=1&srid=hj0Y
 https://www.quora.com/Digital-Signal-Processing-How-do-you-explain-without-doing-any-calculation-that-convolution-in-time-domain-should-imply-multiplication-in-frequency-domain
-多項式的Convolue, 即為多項式的係數相乘
+In a linear, time-invariant system, you can characterize the entire system with a single signal called the impulse response. This impulse response is the output of the system when the input is a simple impulse at time 0.
+一個線性非時變的系統, 不論是連續或離散, 都可以用Impulse Respone來描述整個系統. 基本上, 是指該系統本身是一連串的Impulse Response組成的. 而, 組成的樣子會是多根高低不一的Impulse Respone.
+另外, 輸入的訊號也可以表達成多個Impulse Signal的組合. 
+輸入Impuse Signal, 在一一去乘上系統各階段的Impulse Response, 其結果即為系統的各階段Response.
+如輸入訊號只為一個impulse signal, 但, 由Impulse Response描述的系統在0, 1, 2都各有Response, 則, 該輸入訊號輸入後, 系統在0, 1, 2得到的圖形和原系統的Impluse Response相同. 
+系統的Impulse Response, 應該是以單位Impulse Signal輸入後, 在0, 1, 2,時, 系統的反應及殘留反應. 
+1. Impulse Signal Input時, 會有自己對應的Impluse Response, 再由這個Response去直乘系統0, 1, 2的Response.
+2. Impulse Signal Input時, 會得到自己相對單位Impulse Signal的倍數, 去乘單位Impluse Respone, 即得到系統0, 1, ,2的Respone
+
+單位Impulse Siganl [1, 0, 0, 0, ...] -> 單位System Impulse Response -> [4, 2, 1, 0, 0, 0, ...]
+
+非時變的系統特性, Since this is time invariant, that means that I can shift the impulse in time, and the impulse response will shift as well. 
+For example, the input [0, 1, 0, 0, 0, ...] will produce [0, 4, 2, 1, 0, 0, ...]. 
+
+線性系統特性, Since the system is linear, that means I can do two things: I can scale the input, and the output will scale the exact same way, and I can add two different inputs, and the output will be the sum of the initial outputs.
+For example [1, 2, 0, 0, 0, ...] is two impulses: [1, 0, 0, 0, ...] and 2 * [0, 1, 0, 0, ...], which produces respective outputs [4, 2, 1, 0, 0, ...] and 2 * [0, 4, 2, 1, 0, 0, ...]. We add these together, and we get that the output of [1, 2, 0, 0, ...] is [4, 10, 5, 2, 0, 0, ...]
+
+現在, 我們可以找到任何輸入訊號的輸出. 只需做impluse response shift, multiplying with scaling factor, and add as total
+透過上述的方法去得到系統的輸出, 看起來和Convolution似乎沒有關係, 那是因為, 這是在找各個input signal(impluse signal的倍數/延遲)輸入後, 去看整體的輸出. 而不是特定時間點
+Now, we can essentially find the output signal for any arbitrary input signal, simply by shifting the impulse response in time, multiplying it by a scaling factor, based on the value of the signal at that time, and adding it to a running total. You might think that this looks nothing like convolution, but bear with me! The reason it looks different is because in this case, you're finding the contribution to the entire output signal of each individual input signal. This is a totally valid way to do this, but very inefficient if you just want to know the value of the output signal at one specific time point.
+
+我們如何在特定的時間點找到輸出信號的值？
+好吧，我們知道特定時間點的輸出在這個時間點之前的不同時間（因為系統是因果的）在不同時間的輸入有貢獻。
+它從現在正在發生的投入點，從那個時間前的一​​些貢獻，以及之前的時間等等中有一些貢獻，那麼我們如何找到這個貢獻呢？
+So let's turn this on its head. How do we find the value of the output signal at a specific time point? Well, we know that the output at a specific time point has contributions from the input at various times from before this time point (since the system is causal). It has some contribution from the input point that is happening now, some contribution from the time before that, and the time before that, etc. So how do we find this contribution?
+
 
 https://www.quora.com/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important
 
 Let me put it without much math. Consider multiplication: As and when you get a number, you multiply it by one more number and pass it off as output. A multiplier does not remember stuff. Its like a small child. It forgets all the things you did in the past and responds to the current input. If you smile, it smiles back, so forth. 
 But, a convolution is different. It remembers your past actions. Based on that and your present doing, it will decide what to do. If you smile at it and you did real-bad before, it would not smile back at you! 
+相乘只是當下, 但, Convolution是含過往記憶(過往殘留效應). 就是符合系統的反應.
 
 https://www.quora.com/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important
 Raeed Chowdhury, Electrical Engineer
@@ -71,3 +97,31 @@ The input-output behavior of an LTI system can be characterized via its impulse 
 https://www.quora.com/Digital-Signal-Processing-How-do-you-explain-without-doing-any-calculation-that-convolution-in-time-domain-should-imply-multiplication-in-frequency-domain
 
 http://cc.ee.ntu.edu.tw/~fengli/Teaching/SignalsSystems/
+
+當將兩個多項式相乘時, 其係數的呈現, 即為Convolution的樣式
+
+https://www.allaboutcircuits.com/technical-articles/dsp-applications-of-convolution-part-2/
+https://www.allaboutcircuits.com/technical-articles/better-insight-into-dsp-learning-about-convolution/
+Any signal can be expressed in terms of unit impulses or dirac-delta functions. (Check out these resources for more information: Signals, Linear Systems, and Convolution and Signals in Natural Domain: Discrete-Time Convolution.)
+
+This fact about signal expression implies that any signal is a series of scaled impulse functions which are shifted in time. However, for each of these impulse functions, we can anticipate the system's behavior, provided we know its impulse response.
+
+As LTI systems obey the law of superposition, we can add all these individual system responses. The result obtained through this process will be the output of the system when the input is fed to it.
+
+convolution can be explained in a similar way even when we deal with it in terms of signals.
+
+This is because the steps involved in convoluting the two signals x1[n] and x2[n] are:
+
+Keep one of the signals—we'll call it x1[n]—as it is while flipping another—we'll call it x2[n]—along its time axis.
+Slide x2[n] along x1[n] while multiplying the overlapping samples and summing the product-terms at each time instant.
+
+https://www.dsprelated.com/freebooks/mdft/
+
+A reason for the importance of convolution (defined in §7.2.4) is that every linear time-invariant system8.7can be represented by a convolution. 
+
+https://www.dsprelated.com/freebooks/mdft/Convolution.html
+https://www.dsprelated.com/freebooks/mdft/Polynomial_Multiplication.html
+https://medium.com/@aiswaryamathur/understanding-fast-fourier-transform-from-scratch-to-solve-polynomial-multiplication-8018d511162f
+https://stackoverflow.com/questions/32932245/whats-the-best-way-to-compute-the-coefficients-of-a-polynomial-from-its-roots
+
+
