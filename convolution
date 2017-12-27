@@ -28,6 +28,9 @@ http://blog.csdn.net/zyex1108/article/details/45397637
 以此法, 可以在圖示看到, 當axis 0時, x[0]和y[0]有乘積, 在axis 1時, x[0]和y[1]有overlay, x[1]和y[0]有overaly, 也就是在axis 0時, 系統的output是要考慮兩者的影響.
 
 https://www.quora.com/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important/answer/Mahesh-C-Shastry
+https://www.quora.com/Digital-Signal-Processing/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important/answer/Mahesh-C-Shastry?share=1&srid=pd9d
+https://www.quora.com/Digital-Signal-Processing/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important/answer/Raeed-Chowdhury?share=1&srid=hj0Y
+https://www.quora.com/Digital-Signal-Processing-How-do-you-explain-without-doing-any-calculation-that-convolution-in-time-domain-should-imply-multiplication-in-frequency-domain
 多項式的Convolue, 即為多項式的係數相乘
 
 https://www.quora.com/How-can-I-explain-in-a-simple-manner-what-convolution-is-and-why-it-is-important
@@ -44,3 +47,27 @@ https://www.quora.com/Digital-Signal-Processing-How-do-you-explain-without-doing
 
 
 https://www.quora.com/What-is-an-intuitive-way-of-explaining-how-the-Fourier-transform-works/answer/Mark-Eichenlaub
+
+
+https://www.quora.com/Why-do-CNNs-use-convolution-instead-of-cross-correlation
+Actually most practical applications of convolutional neural networks (CNN) use cross-correlation instead of convolutions.
+
+Convolution operation either flips the source image or the kernel weights. Flipping actually adds some unnecessary complexity to the CNN code especially that the flipping operation occurs during inference and backpropagation of errors.
+On the other hand cross-correlation does not flip the source image or kernel weights. This results in simplified CNN code. Thus cross-correlation is more convenient to implement in CNNs than convolution operation itself.
+
+You can call them that if you want to, but in CNN terms the two are the same. You can do a flip or not, the CNN will just adapt accordingly. If you do a flip then the CNN just learns flipped weights as well so it technically doesn't change anything.
+
+
+單位脈衝的系統響應會等於它自己
+而, 任何的信號都可以拆解為一個個的單位脈衝訊號
+因此, 我們將輸入訊號拆解成脈衝訊號的線性關係(加, 減, 乘, 除), 再分別將其對應的脈衝響應作線性組合, 即可得到該輸入訊號的系統響應
+在時域, 將輸入訊號拆解成脈衝訊號的線性關係, 再將其對應的脈衝響應以積的方式表示出整體輸出
+
+
+https://dsp.stackexchange.com/questions/4723/what-is-the-physical-meaning-of-the-convolution-of-two-signals
+The input-output behavior of an LTI system can be characterized via its impulse response, and the output of an LTI system for any input signal x(t)x(t) can be expressed as the convolution of the input signal with the system's impulse response.
+
+
+https://www.quora.com/Digital-Signal-Processing-How-do-you-explain-without-doing-any-calculation-that-convolution-in-time-domain-should-imply-multiplication-in-frequency-domain
+
+http://cc.ee.ntu.edu.tw/~fengli/Teaching/SignalsSystems/
